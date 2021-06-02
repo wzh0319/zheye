@@ -1,22 +1,30 @@
 <template>
+  <GlobalHeader :user="user"></GlobalHeader>
   <ColumnList :list='testData'/>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue'
 import ColumnList from './components/ColumnList.vue'
+import GlobalHeader from './components/GlobalHeader.vue'
 export interface ColumnProps{
   id: number;
   title: string;
   avatar: string;
   description: string;
 }
+export interface UserProps {
+  isLogin:boolean;
+  name?:string;
+  id?:number
+}
 export default defineComponent({
   name: 'App',
   components: {
-    ColumnList
+    ColumnList,
+    GlobalHeader
   },
-  setup (props) {
+  setup () {
     const testData: ColumnProps[] = [
       {
         id: 1,
@@ -43,8 +51,12 @@ export default defineComponent({
         avatar: 'http://vue-maker.oss-cn-hangzhou.aliyuncs.com/vue-marker/5ee22dd58b3c4520912b9470.jpg?x-oss-process=image/resize,m_pad,h_100,w_100'
       }
     ]
-    console.log(props)
-    return { testData }
+    const user : UserProps = {
+      isLogin: true,
+      name: 'admin',
+      id: 1
+    }
+    return { testData, user }
   }
 })
 </script>
