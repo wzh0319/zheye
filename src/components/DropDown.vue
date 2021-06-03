@@ -20,13 +20,12 @@
 <script lang="ts">
 import {
   defineComponent,
-  onMounted,
-  onUnmounted,
   PropType,
   reactive,
-  ref
+  ref,
+  watch
 } from 'vue'
-
+import useClickoutsilde from '../hooks/useClickoutside'
 export interface DropDownProps {
   name: string;
   list: Array<string>;
@@ -43,20 +42,16 @@ export default defineComponent({
       list: ['新建文章', '编辑资料', '退出登录'],
       isshow: false
     })
-    const toggoleDropDown = (): void => {
+    const toggoleDropDown = () => {
       data.isshow = !data.isshow
     }
-    const dropdownRef = ref<null | HTMLElement>(null)
-    const handler = (e: MouseEvent) => {
-      if (!dropdownRef.value?.contains(e.target as HTMLElement) && data.isshow) {
+    const dropdownRef = ref(null)
+    const isClickoutsilde = useClickoutsilde(dropdownRef)
+    // console.log(isClickoutsilde, 'isClickoutsilde')
+    watch(isClickoutsilde, () => {
+      if (isClickoutsilde.value && data.isshow) {
         data.isshow = false
       }
-    }
-    onMounted(() => {
-      document.addEventListener('click', handler)
-    })
-    onUnmounted(() => {
-      document.removeEventListener('click', handler)
     })
     return { data, toggoleDropDown, dropdownRef }
   }
