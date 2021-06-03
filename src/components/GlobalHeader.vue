@@ -30,12 +30,10 @@ export default defineComponent({
     }
   },
   setup (props) {
-    console.log(props.user?.name)
     const data = reactive({
       name: props.user?.name,
       list: ['新建文章', '编辑资料', '退出登录']
     })
-    console.log(data)
     return { data }
   },
   components: {

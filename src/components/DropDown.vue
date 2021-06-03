@@ -47,7 +47,6 @@ export default defineComponent({
     }
     const dropdownRef = ref(null)
     const isClickoutsilde = useClickoutsilde(dropdownRef)
-    // console.log(isClickoutsilde, 'isClickoutsilde')
     watch(isClickoutsilde, () => {
       if (isClickoutsilde.value && data.isshow) {
         data.isshow = false
