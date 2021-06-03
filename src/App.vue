@@ -2,12 +2,14 @@
 
   <GlobalHeader :user="user"></GlobalHeader>
   <ColumnList :list='testData'/>
+  <Login></Login>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue'
 import ColumnList from './components/ColumnList.vue'
 import GlobalHeader from './components/GlobalHeader.vue'
+import Login from './components/Login.vue'
 export interface ColumnProps{
   id: number;
   title: string;
@@ -23,7 +25,8 @@ export default defineComponent({
   name: 'App',
   components: {
     ColumnList,
-    GlobalHeader
+    GlobalHeader,
+    Login
   },
   setup () {
     const testData: ColumnProps[] = [
