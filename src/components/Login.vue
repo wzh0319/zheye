@@ -2,13 +2,13 @@
   <form>
     <div class="mb-3">
       <label for="exampleInputEmail1" class="form-label">邮箱</label>
-      <ValidateInput :rules="emailRules"/>
-      <div class="form-text" >{{emailRules.message}}</div>
+      <ValidateInput :rules="emailRules" @message="getValidateinputmessage"/>
+      <!-- <div class="form-text" >{{emailRules.message}}</div> -->
     </div>
     <div class="mb-3">
       <label for="exampleInputPassword1"  class="form-label">密码</label>
-      <input type="password" class="form-control" v-model="data.email.password" id="exampleInputPassword1">
-      <div id="emailHelp" class="form-text" >{{data.email.message}}</div>
+      <input type="password" class="form-control"  id="exampleInputPassword1">
+      <div id="emailHelp" class="form-text" ></div>
     </div>
     <button type="submit" class="btn btn-primary">登录</button>
   </form>
@@ -22,9 +22,12 @@ export default defineComponent({
   setup () {
     const emailRules: RulesProp = [
       { type: 'require', message: '邮箱不能为空！' },
-      { type: 'email', message: '邮箱不能为空！' }
+      { type: 'email', message: '邮箱不合法' }
     ]
-    return { emailRules }
+    const getValidateinputmessage = (val:string) =>{
+      console.log(val);
+    }
+    return { emailRules, getValidateinputmessage }
   }
 })
 </script>

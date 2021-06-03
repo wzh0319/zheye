@@ -4,7 +4,9 @@
       @blur="validateinput"
     :class="{'is-invalid':inputreactive.error}"
     >
-    <span v-if="validateinput.error" class="invalid-feedback"></span>
+    <span v-if="inputreactive.error" class="invalid-feedback">
+      {{inputreactive.message}}
+    </span>
   </div>
 </template>
 <script lang="ts">
@@ -18,7 +20,8 @@ export default defineComponent({
   props: {
     rules: Array as PropType<RulesProp>
   },
-  setup (props) {
+  setup (props,ctx) {
+
     const inputreactive = reactive({
       value: '',
       error: false,
@@ -42,8 +45,10 @@ export default defineComponent({
           return passed
         })
         inputreactive.error = !allpassed
+        ctx.emit('message',{message: inputreactive.message})
       }
     }
+
     return { inputreactive, validateinput }
   }
 })
